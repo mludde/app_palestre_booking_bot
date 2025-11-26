@@ -9,16 +9,26 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class HelloWorldBot extends TelegramLongPollingBot {
 
-    private static final Dotenv dotenv = Dotenv.load();
+    private static final Dotenv dotenv = Dotenv.configure()
+      .ignoreIfMissing() // evita errori se .env non esiste (es. Railway)
+      .load();
+
+    public static final String BOT_TOKEN = getEnv("BOT_TOKEN");
+    public static final String BOT_NAME = getEnv("BOT_USERNAME");
+
+    private static String getEnv(String key) {
+        String value = System.getenv(key);
+        return value != null ? value : dotenv.get(key);
+    }
 
     @Override
     public String getBotUsername() {
-        return dotenv.get("BOT_USERNAME");
+        return BOT_NAME;
     }
 
     @Override
     public String getBotToken() {
-        return dotenv.get("BOT_TOKEN");
+        return BOT_TOKEN;
     }
 
     @Override
