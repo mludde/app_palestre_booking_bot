@@ -40,7 +40,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>com.apppalestrebookinbot.HelloWorldBot</mainClass>
+                            <mainClass>com.apppalestrebookingbot.HelloWorldBot</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -52,7 +52,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
-                    <mainClass>com.apppalestrebookinbot.HelloWorldBot</mainClass>
+                    <mainClass>com.apppalestrebookingbot.HelloWorldBot</mainClass>
                 </configuration>
             </plugin>
 
