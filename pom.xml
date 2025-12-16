@@ -1,62 +1,17 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-<modelVersion>4.0.0</modelVersion>
-
-<groupId>com.example</groupId>
-<artifactId>app-palestre-booking-bot</artifactId>
-<version>1.0-SNAPSHOT</version>
-
-<properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-</properties>
-
-<dependencies>
-    <dependency>
-        <groupId>org.telegram</groupId>
-        <artifactId>telegrambots</artifactId>
-        <version>6.8.0</version>
-    </dependency>
-
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-core</artifactId>
-        <version>2.17.0</version>
-    </dependency>
-
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-databind</artifactId>
-        <version>2.17.0</version>
-    </dependency>
-
-    <dependency>
-        <groupId>com.fasterxml.jackson.core</groupId>
-        <artifactId>jackson-annotations</artifactId>
-        <version>2.17.0</version>
-    </dependency>
-
-
-    <dependency>
-        <groupId>org.projectlombok</groupId>
-        <artifactId>lombok</artifactId>
-        <version>1.18.26</version>
-    </dependency>
-
-    <dependency>
-        <groupId>io.github.cdimascio</groupId>
-        <artifactId>java-dotenv</artifactId>
-        <version>5.2.2</version>
-    </dependency>
-
-</dependencies>
-
 <build>
     <plugins>
 
-        <!-- Crea un JAR eseguibile con tutte le dipendenze -->
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.11.0</version>
+            <configuration>
+                <source>17</source>
+                <target>17</target>
+                <release>17</release>
+            </configuration>
+        </plugin>
+
         <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-shade-plugin</artifactId>
@@ -71,7 +26,7 @@
                         <createDependencyReducedPom>false</createDependencyReducedPom>
                         <transformers>
                             <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                <mainClass>com.apppalestrebookingbot.bot.HelloWorldBot</mainClass>
+                                <mainClass>com.apppalestrebookingbot.HelloWorldBot</mainClass>
                             </transformer>
                         </transformers>
                     </configuration>
@@ -79,19 +34,14 @@
             </executions>
         </plugin>
 
-        <!-- Utile durante sviluppo -->
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
             <artifactId>exec-maven-plugin</artifactId>
             <version>3.1.0</version>
             <configuration>
-                <mainClass>com.apppalestrebookingbot.bot.HelloWorldBot</mainClass>
+                <mainClass>com.apppalestrebookingbot.HelloWorldBot</mainClass>
             </configuration>
         </plugin>
 
     </plugins>
 </build>
-
-
-
-</project>
