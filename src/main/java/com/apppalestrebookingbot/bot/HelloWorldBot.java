@@ -1,6 +1,7 @@
-package com.apppalestrebookingbot;
+package com.apppalestrebookingbot.bot;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import com.apppalestrebookingbot.scheduler.DailyScheduler;
+import com.apppalestrebookingbot.utils.UtilityClass;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -9,18 +10,10 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 public class HelloWorldBot extends TelegramLongPollingBot {
 
-    private static final Dotenv dotenv = Dotenv.configure()
-      .ignoreIfMissing() // evita errori se .env non esiste (es. Railway)
-      .load();
-
-    public static final String BOT_TOKEN = getEnv("BOT_TOKEN");
-    public static final String BOT_NAME = getEnv("BOT_USERNAME");
-
-    private static String getEnv(String key) {
-        String value = System.getenv(key);
-        return value != null ? value : dotenv.get(key);
-    }
-
+    public static final String BOT_TOKEN = UtilityClass.getEnv("BOT_TOKEN");
+    public static final String BOT_NAME = UtilityClass.getEnv("BOT_USERNAME");
+    public static final String BOOKING_TIME =  UtilityClass.getEnv("BOOKING_TIME");
+;
     @Override
     public String getBotUsername() {
         return BOT_NAME;
@@ -42,7 +35,7 @@ public class HelloWorldBot extends TelegramLongPollingBot {
                 message.setChatId(chatId);
                 message.setText("Hello World!");
 
-                execute(message);
+                //execute(message);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,6 +43,7 @@ public class HelloWorldBot extends TelegramLongPollingBot {
     }
 
     public static void main(String[] args) throws Exception {
+        DailyScheduler.startDailyTask(BOOKING_TIME);
         TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
         botsApi.registerBot(new HelloWorldBot());
         System.out.println("Bot avviato!");
